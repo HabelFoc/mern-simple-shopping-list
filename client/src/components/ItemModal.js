@@ -9,7 +9,6 @@ import {
 	Input,
 	Button
 } from 'reactstrap';
-import uuid from 'uuid';
 
 import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
@@ -35,12 +34,11 @@ class ItemModal extends Component{
 		e.preventDefault();
 
 		const newItem = {
-			id: uuid(),
 			name: this.state.name
 		}
 
 		this.props.addItem(newItem);
-		this.props.isModalOpen();
+		this.props.isModalOpen()
 	}
 
 	onChange(e){

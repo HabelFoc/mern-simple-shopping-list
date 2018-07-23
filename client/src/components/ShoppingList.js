@@ -27,9 +27,9 @@ class ShoppingList extends Component{
 	}
 
 	// Handle Deleting Items
-	onDeleteItem(id){
+	onDeleteItem(_id){
 		// call 'deleteItem' action with specify id
-		this.props.deleteItem({id});
+		this.props.deleteItem(_id);
 	}
 
 	isModalOpen(){
@@ -48,14 +48,14 @@ class ShoppingList extends Component{
 				
 				<ListGroup>
 					<TransitionGroup className="shopping-list">
-						{items.map(({ id, name }) => (
-							<CSSTransition key={id} timeout={500} classNames="fade">
+						{items.map(({ _id, name }) => (
+							<CSSTransition key={_id} timeout={500} classNames="fade">
 								<ListGroupItem>
 									<Button
 									className="remove-btn"
 									color="danger"
 									size="sm"
-									onClick={this.onDeleteItem.bind(this, id)}
+									onClick={this.onDeleteItem.bind(this, _id)}
 									>&times;</Button>
 									{name}
 								</ListGroupItem>
