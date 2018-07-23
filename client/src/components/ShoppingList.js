@@ -27,9 +27,9 @@ class ShoppingList extends Component{
 	}
 
 	// Handle Deleting Items
-	onDeleteItem(_id){
+	onDeleteItem(id){
 		// call 'deleteItem' action with specify id
-		this.props.deleteItem(_id);
+		this.props.deleteItem(id);
 	}
 
 	isModalOpen(){

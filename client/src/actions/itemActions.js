@@ -45,17 +45,17 @@ export const addItem = (item) => {
 
 
 // Deleting item
-export const deleteItem = (_id) => {
+export const deleteItem = (id) => {
 	return async dispatch => {
 		
 		dispatch({
 			type: DELETE_ITEM,
-			payload: _id
+			payload: id
 		});
 
 		try{
 			await axios
-			.delete(`/api/items/delete/${_id}`)
+			.delete(`/api/items/delete/${id}`)
 			.then(res => console.log('delete item success!'));
 
 		}catch(err){
