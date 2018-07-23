@@ -6,23 +6,24 @@ import {
 	Button
   } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { getItems, addItem, deleteItem } from '../actions/itemActions';
+
+// actions
+import { getItems, deleteItem } from '../actions/itemActions';
+
+// custom components
+import ItemModal from './ItemModal';
+
 import PropTypes from 'prop-types';
 
 class ShoppingList extends Component{
+	state = {
+		modal: false
+	}
 
 	componentDidMount(){
 		// call 'getItems' action
 		this.props.getItems();
-	}
-
-	// Handle Adding Items
-	onAddItem(){
-		const name = prompt('Add Item');
-		// call 'addItem' action with data passed
-		this.props.addItem({id:uuid(), name});
 	}
 
 	// Handle Deleting Items
@@ -31,13 +32,20 @@ class ShoppingList extends Component{
 		this.props.deleteItem({id});
 	}
 
+	isModalOpen(){
+		this.setState({
+			modal: !this.state.modal
+		});
+	}
+
 
 	render(){
 		const { items } = this.props.item;
 		return(
 			<Container>
-				<Button className="mb-3" block color="dark" onClick={this.onAddItem.bind(this)}>Add Item</Button>
-
+				<ItemModal isModalOpen={this.isModalOpen.bind(this)} modalState={this.state.modal} />
+				<Button className="mb-3" color="dark" onClick={this.isModalOpen.bind(this)}>Add Item</Button>
+				
 				<ListGroup>
 					<TransitionGroup className="shopping-list">
 						{items.map(({ id, name }) => (
@@ -62,7 +70,6 @@ class ShoppingList extends Component{
 
 ShoppingList.propTypes = {
   getItems: PropTypes.func.isRequired,
-  addItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 };
@@ -73,4 +80,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { getItems, addItem, deleteItem })(ShoppingList);
+export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);
